@@ -10,6 +10,9 @@
 
 #import "GameScene.h"
 
+#define SK_DEGREES_TO_RADIANS(__ANGLE__) ((__ANGLE__) * 0.01745329252f) // PI / 180
+#define SK_RADIANS_TO_DEGREES(__ANGLE__) ((__ANGLE__) * 57.29577951f)   // PI * 180
+
 const CGFloat MaxPlayerAccel = 400.0f;
 const CGFloat MaxPlayerSpeed = 200.0f;
 
@@ -93,6 +96,9 @@ const CGFloat MaxPlayerSpeed = 200.0f;
     
     [self updatePlayerAccelerationFromMotionManager];
     [self updatePlayer:_deltaTime];
+    
+    CGFloat angle = atan2f(_playerSpeedY, _playerSpeedX);
+    _playerSprite.zRotation = angle - SK_DEGREES_TO_RADIANS(90);
 }
 
 -(void)updatePlayer:(CFTimeInterval)dt {
